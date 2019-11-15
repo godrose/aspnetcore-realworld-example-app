@@ -1,9 +1,7 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using MediatR;
 
 namespace Conduit.Infrastructure
 {
@@ -23,7 +21,7 @@ namespace Conduit.Infrastructure
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            TResponse result = default(TResponse);
+            TResponse result = default;
 
             try
             {

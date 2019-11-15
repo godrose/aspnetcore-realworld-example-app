@@ -103,7 +103,7 @@ namespace Conduit.Features.Articles
                     var t = await _context.Tags.FindAsync(tag);
                     if (t == null)
                     {
-                        t = new Tag()
+                        t = new Tag
                         {
                             TagId = tag
                         };
@@ -125,11 +125,11 @@ namespace Conduit.Features.Articles
                     var at = article.ArticleTags.FirstOrDefault(t => t.TagId == tag);
                     if (at == null)
                     {
-                        at = new ArticleTag()
+                        at = new ArticleTag
                         {
                             Article = article,
                             ArticleId = article.ArticleId,
-                            Tag = new Tag() { TagId = tag },
+                            Tag = new Tag { TagId = tag },
                             TagId = tag
                         };
                         articleTagsToCreate.Add(at);

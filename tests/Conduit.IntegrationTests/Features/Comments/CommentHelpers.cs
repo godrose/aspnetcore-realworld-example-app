@@ -1,8 +1,10 @@
 ﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using Conduit.Domain;
 using Conduit.Features.Comments;
 using Conduit.IntegrationTests.Features.Users;
+using Microsoft.EntityFrameworkCore;
 
 namespace Conduit.IntegrationTests.Features.Comments
 {
@@ -16,7 +18,7 @@ namespace Conduit.IntegrationTests.Features.Comments
         /// <param name="command"></param>
         /// <param name="userName"></param>
         /// <returns></returns>
-        public static async Task<Domain.Comment> CreateComment(SliceFixture fixture, Create.Command command, string userName)
+        public static async Task<Comment> CreateComment(SliceFixture fixture, Create.Command command, string userName)
         {
             if (string.IsNullOrWhiteSpace(userName))
             {
@@ -28,7 +30,7 @@ namespace Conduit.IntegrationTests.Features.Comments
             var currentAccessor = new StubCurrentUserAccessor(userName);
 
             var commentCreateHandler = new Create.Handler(dbContext, currentAccessor);
-            var created = await commentCreateHandler.Handle(command, new System.Threading.CancellationToken());
+            var created = await commentCreateHandler.Handle(command, new CancellationToken());
 
             var dbArticleWithComments = await fixture.ExecuteDbContextAsync(
                 db => db.Articles

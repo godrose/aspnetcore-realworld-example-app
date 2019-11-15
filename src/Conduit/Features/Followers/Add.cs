@@ -27,7 +27,7 @@ namespace Conduit.Features.Followers
         {
             public CommandValidator()
             {
-                DefaultValidatorExtensions.NotNull(RuleFor(x => x.Username)).NotEmpty();
+                RuleFor(x => x.Username).NotNull().NotEmpty();
             }
         }
 
@@ -59,7 +59,7 @@ namespace Conduit.Features.Followers
 
                 if (followedPeople == null)
                 {
-                    followedPeople = new FollowedPeople()
+                    followedPeople = new FollowedPeople
                     {
                         Observer = observer,
                         ObserverId = observer.PersonId,

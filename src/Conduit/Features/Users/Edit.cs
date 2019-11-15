@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Conduit.Domain;
 using Conduit.Infrastructure;
 using Conduit.Infrastructure.Security;
 using FluentValidation;
@@ -74,7 +75,7 @@ namespace Conduit.Features.Users
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new UserEnvelope(_mapper.Map<Domain.Person, User>(person));
+                return new UserEnvelope(_mapper.Map<Person, User>(person));
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Conduit.Domain;
 
 namespace Conduit.Features.Profiles
 {
@@ -6,7 +7,7 @@ namespace Conduit.Features.Profiles
     {
         public MappingProfile()
         {
-            CreateMap<Domain.Person, Profile>(MemberList.None);
+            CreateMap<Person, Profile>(MemberList.None);
         }
     }
 }

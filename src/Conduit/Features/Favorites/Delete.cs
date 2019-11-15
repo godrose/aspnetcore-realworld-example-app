@@ -26,7 +26,7 @@ namespace Conduit.Features.Favorites
         {
             public CommandValidator()
             {
-                DefaultValidatorExtensions.NotNull(RuleFor(x => x.Slug)).NotEmpty();
+                RuleFor(x => x.Slug).NotNull().NotEmpty();
             }
         }
 

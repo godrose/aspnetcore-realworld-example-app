@@ -2,6 +2,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using Conduit.Domain;
 using Conduit.Infrastructure;
 using Conduit.Infrastructure.Errors;
 using Microsoft.EntityFrameworkCore;
@@ -32,7 +33,7 @@ namespace Conduit.Features.Profiles
             {
                 throw new RestException(HttpStatusCode.NotFound, new { User = Constants.NOT_FOUND });
             }
-            var profile = _mapper.Map<Domain.Person, Profile>(person);
+            var profile = _mapper.Map<Person, Profile>(person);
 
             if (currentUserName != null)
             {

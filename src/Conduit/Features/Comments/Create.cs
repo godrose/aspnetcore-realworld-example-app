@@ -65,7 +65,7 @@ namespace Conduit.Features.Comments
 
                 var author = await _context.Persons.FirstAsync(x => x.Username == _currentUserAccessor.GetCurrentUsername(), cancellationToken);
 
-                var comment = new Comment()
+                var comment = new Comment
                 {
                     Author = author,
                     Body = message.Comment.Body,

@@ -51,7 +51,7 @@ namespace Conduit
                     options.TokenValidationParameters = tokenValidationParameters;
                     options.Events = new JwtBearerEvents
                     {
-                        OnMessageReceived = (context) =>
+                        OnMessageReceived = context =>
                         {
                             var token = context.HttpContext.Request.Headers["Authorization"];
                             if (token.Count > 0 && token[0].StartsWith("Token ", StringComparison.OrdinalIgnoreCase))

@@ -20,8 +20,8 @@ namespace Conduit.Infrastructure.Errors
             ILogger<ErrorHandlingMiddleware> logger)
         {
             this.next = next;
-            this._logger = logger;
-            this._localizer = localizer;
+            _logger = logger;
+            _localizer = localizer;
         }
 
         public async Task Invoke(HttpContext context)

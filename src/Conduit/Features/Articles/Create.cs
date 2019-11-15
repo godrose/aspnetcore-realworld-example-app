@@ -67,7 +67,7 @@ namespace Conduit.Features.Articles
                     var t = await _context.Tags.FindAsync(tag);
                     if (t == null)
                     {
-                        t = new Tag()
+                        t = new Tag
                         {
                             TagId = tag
                         };
@@ -78,7 +78,7 @@ namespace Conduit.Features.Articles
                     tags.Add(t);
                 }
 
-                var article = new Article()
+                var article = new Article
                 {
                     Author = author,
                     Body = message.Article.Body,
@@ -90,7 +90,7 @@ namespace Conduit.Features.Articles
                 };
                 await _context.Articles.AddAsync(article, cancellationToken);
 
-                await _context.ArticleTags.AddRangeAsync(tags.Select(x => new ArticleTag()
+                await _context.ArticleTags.AddRangeAsync(tags.Select(x => new ArticleTag
                 {
                     Article = article,
                     Tag = x

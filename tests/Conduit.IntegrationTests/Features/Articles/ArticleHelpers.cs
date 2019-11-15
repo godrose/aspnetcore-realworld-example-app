@@ -1,8 +1,10 @@
 ﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Conduit.IntegrationTests.Features.Users;
+using Conduit.Domain;
 using Conduit.Features.Articles;
+using Conduit.IntegrationTests.Features.Users;
+using Microsoft.EntityFrameworkCore;
 
 namespace Conduit.IntegrationTests.Features.Articles
 {
@@ -14,7 +16,7 @@ namespace Conduit.IntegrationTests.Features.Articles
         /// <param name="fixture"></param>
         /// <param name="command"></param>
         /// <returns></returns>
-        public static async Task<Domain.Article> CreateArticle(SliceFixture fixture, Create.Command command)
+        public static async Task<Article> CreateArticle(SliceFixture fixture, Create.Command command)
         {
             // first create the default user
             var user = await UserHelpers.CreateDefaultUser(fixture);
@@ -23,7 +25,7 @@ namespace Conduit.IntegrationTests.Features.Articles
             var currentAccessor = new StubCurrentUserAccessor(user.Username);
 
             var articleCreateHandler = new Create.Handler(dbContext, currentAccessor);
-            var created = await articleCreateHandler.Handle(command, new System.Threading.CancellationToken());
+            var created = await articleCreateHandler.Handle(command, new CancellationToken());
 
             var dbArticle = await fixture.ExecuteDbContextAsync(db => db.Articles.Where(a => a.ArticleId == created.Article.ArticleId)
                 .SingleOrDefaultAsync());

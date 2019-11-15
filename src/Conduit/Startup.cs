@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
+using AutoMapper;
 using Conduit.Features.Profiles;
 using Conduit.Infrastructure;
 using Conduit.Infrastructure.Errors;
@@ -6,18 +9,11 @@ using Conduit.Infrastructure.Security;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Swashbuckle.AspNetCore.Swagger;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using Microsoft.OpenApi.Models;
 
 namespace Conduit
@@ -77,7 +73,7 @@ namespace Conduit
                     BearerFormat = "JWT"
                 });
 
-                x.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                x.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {   new OpenApiSecurityScheme
                     {
@@ -88,7 +84,7 @@ namespace Conduit
                 x.SwaggerDoc("v1", new OpenApiInfo { Title = "RealWorld API", Version = "v1" });
                 x.CustomSchemaIds(y => y.FullName);
                 x.DocInclusionPredicate((version, apiDescription) => true);
-                x.TagActionsBy(y => new List<string>()
+                x.TagActionsBy(y => new List<string>
                 {
                     y.GroupName
                 });

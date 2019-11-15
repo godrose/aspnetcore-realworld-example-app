@@ -94,7 +94,7 @@ namespace Conduit.Features.Articles
                     .AsNoTracking()
                     .ToListAsync(cancellationToken);
 
-                return new ArticlesEnvelope()
+                return new ArticlesEnvelope
                 {
                     Articles = articles,
                     ArticlesCount = queryable.Count()

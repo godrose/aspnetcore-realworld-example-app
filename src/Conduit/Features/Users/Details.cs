@@ -2,6 +2,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Conduit.Domain;
 using Conduit.Infrastructure;
 using Conduit.Infrastructure.Errors;
 using Conduit.Infrastructure.Security;
@@ -48,7 +49,7 @@ namespace Conduit.Features.Users
                 {
                     throw new RestException(HttpStatusCode.NotFound, new { User = Constants.NOT_FOUND });
                 }
-                var user = _mapper.Map<Domain.Person, User>(person);
+                var user = _mapper.Map<Person, User>(person);
                 user.Token = await _jwtTokenGenerator.CreateToken(person.Username);
                 return new UserEnvelope(user);
             }

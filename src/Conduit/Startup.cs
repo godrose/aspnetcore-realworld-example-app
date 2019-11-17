@@ -75,13 +75,15 @@ namespace Conduit
 
                 x.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
-                    {   new OpenApiSecurityScheme
                     {
-                        Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
-                    },
-                    new string[] {}}
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference {Type = ReferenceType.SecurityScheme, Id = "Bearer"}
+                        },
+                        new string[] { }
+                    }
                 });
-                x.SwaggerDoc("v1", new OpenApiInfo { Title = "RealWorld API", Version = "v1" });
+                x.SwaggerDoc("v1", new OpenApiInfo {Title = "RealWorld API", Version = "v1"});
                 x.CustomSchemaIds(y => y.FullName);
                 x.DocInclusionPredicate((version, apiDescription) => true);
                 x.TagActionsBy(y => new List<string>
@@ -97,14 +99,8 @@ namespace Conduit
                     opt.Filters.Add(typeof(ValidatorActionFilter));
                     opt.EnableEndpointRouting = false;
                 })
-                .AddJsonOptions(opt =>
-                {
-                    opt.JsonSerializerOptions.IgnoreNullValues = true;
-                })
-                .AddFluentValidation(cfg =>
-                {
-                    cfg.RegisterValidatorsFromAssemblyContaining<Startup>();
-                });
+                .AddJsonOptions(opt => { opt.JsonSerializerOptions.IgnoreNullValues = true; })
+                .AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<Startup>(); });
 
             services.AddAutoMapper(GetType().Assembly);
 
@@ -133,16 +129,10 @@ namespace Conduit
             app.UseMvc();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint
-            app.UseSwagger(c =>
-            {
-                c.RouteTemplate = "swagger/{documentName}/swagger.json";
-            });
+            app.UseSwagger(c => { c.RouteTemplate = "swagger/{documentName}/swagger.json"; });
 
             // Enable middleware to serve swagger-ui assets(HTML, JS, CSS etc.)
-            app.UseSwaggerUI(x =>
-            {
-                x.SwaggerEndpoint("/swagger/v1/swagger.json", "RealWorld API V1");
-            });
+            app.UseSwaggerUI(x => { x.SwaggerEndpoint("/swagger/v1/swagger.json", "RealWorld API V1"); });
 
             app.ApplicationServices.GetRequiredService<ConduitContext>().Database.EnsureCreated();
         }
